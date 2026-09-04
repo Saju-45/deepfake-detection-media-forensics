@@ -1,12 +1,10 @@
 # DeepGuard — Deepfake Detection & Media Forensics
 
-> An AI-powered media forensics system that analyzes videos for signs of manipulation and produces an authenticity assessment with supporting forensic evidence.
+> **Don't just ask whether a frame looks fake. Analyze how the face behaves across an entire video sequence.**
 
-DeepGuard is a deep-learning based deepfake detection system designed to go beyond a simple **REAL / FAKE** prediction.
+DeepGuard is an AI-powered media forensics system that analyzes facial content across video frames to detect potential deepfake manipulation and generate an evidence-backed authenticity assessment.
 
-The system analyzes facial content across multiple video frames, extracts spatial features using a pretrained EfficientNet model, models temporal information using a Transformer, and combines the analysis into an interpretable forensic report.
-
----
+Unlike a simple frame-level classifier, DeepGuard combines **spatial visual features** from EfficientNet-B0 with **temporal modeling** through a Transformer Encoder to capture inconsistencies that emerge across time.
 
 ## 🚨 Why DeepGuard?
 
