@@ -1,48 +1,98 @@
-# Deepfake Detection & Media Forensics
+# DeepGuard — Deepfake Detection & Media Forensics
 
-A deep-learning based system for detecting manipulated images and videos and providing forensic evidence to support the authenticity assessment.
+> An AI-powered media forensics system that analyzes videos for signs of manipulation and produces an authenticity assessment with supporting forensic evidence.
 
-## Project Pipeline
+DeepGuard is a deep-learning based deepfake detection system designed to go beyond a simple **REAL / FAKE** prediction.
 
-Image / Video
-→ Frame Extraction
-→ Face Detection
-→ Face Alignment
-→ Spatial Features
-→ Temporal Features
-→ Multimodal Analysis
-→ Authenticity Score
-→ Evidence Extraction
-→ Forensic Report
+The system analyzes facial content across multiple video frames, extracts spatial features using a pretrained EfficientNet model, models temporal information using a Transformer, and combines the analysis into an interpretable forensic report.
 
-## Planned Models
+---
 
-- CNN Baseline
-- EfficientNet
-- Vision Transformer (ViT)
-- Temporal Transformer
+## 🚨 Why DeepGuard?
 
-## Planned Experiments
+AI-generated and manipulated media is becoming increasingly difficult to distinguish from authentic content.
 
-1. CNN vs EfficientNet vs ViT
-2. Frame sampling comparison
-3. Frame averaging vs LSTM vs Temporal Transformer
-4. Cross-dataset generalization
-5. Explainability using Grad-CAM and attention
+A single-frame classifier can identify visual artifacts, but deepfakes are fundamentally a **temporal problem**. Manipulations may appear inconsistently across frames through:
 
-## Technology Stack
+- facial artifacts
+- unnatural expressions
+- inconsistent facial features
+- blending boundaries
+- temporal instability
+- frame-to-frame inconsistencies
 
-- Python
-- PyTorch
-- OpenCV
-- torchvision
-- timm
-- NumPy
-- Pandas
-- scikit-learn
-- Matplotlib
-- Streamlit
+This led to the central idea behind DeepGuard:
 
-## Project Status
+> **Don't ask whether one frame looks fake. Analyze how the face behaves across an entire sequence.**
 
-🚧 Currently setting up the project foundation.
+DeepGuard therefore treats a video as a sequence rather than an isolated image.
+
+---
+
+# 🎯 Project Goal
+
+Build an end-to-end AI system capable of:
+
+1. Accepting a real-world video
+2. Extracting representative frames
+3. Detecting faces
+4. Aligning facial regions
+5. Extracting spatial visual features
+6. Modeling temporal relationships between frames
+7. Producing an authenticity score
+8. Extracting supporting evidence
+9. Generating a forensic analysis report
+
+---
+
+# 🧠 System Architecture
+
+```text
+                    ┌────────────────────┐
+                    │    Input Video     │
+                    └─────────┬──────────┘
+                              │
+                              ▼
+                    ┌────────────────────┐
+                    │   Frame Sampling   │
+                    │   8/16/32/64       │
+                    └─────────┬──────────┘
+                              │
+                              ▼
+                    ┌────────────────────┐
+                    │   Face Detection   │
+                    │    Haar Cascade    │
+                    └─────────┬──────────┘
+                              │
+                              ▼
+                    ┌────────────────────┐
+                    │   Face Alignment   │
+                    │     MediaPipe      │
+                    └─────────┬──────────┘
+                              │
+                              ▼
+                    ┌────────────────────┐
+                    │ Spatial Features   │
+                    │   EfficientNet-B0  │
+                    │     1280-D         │
+                    └─────────┬──────────┘
+                              │
+                              ▼
+              ┌──────────────────────────────┐
+              │      Temporal Modeling       │
+              │                              │
+              │   Transformer Encoder        │
+              │   64-frame sequence          │
+              └──────────────┬───────────────┘
+                             │
+                             ▼
+                    ┌────────────────────┐
+                    │ Authenticity Score │
+                    │   REAL / FAKE      │
+                    └─────────┬──────────┘
+                              │
+                              ▼
+                    ┌────────────────────┐
+                    │ Evidence Extraction│
+                    │ & Forensic Report  │
+                    └────────────────────┘
