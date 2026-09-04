@@ -21,15 +21,13 @@ class EfficientNetFeatureExtractor(nn.Module):
             weights=weights
         )
 
-        # Remove the final classification layer
-        # so the network outputs feature vectors.
+        # Remove final classification layer
         self.model.classifier = nn.Identity()
 
-        # ImageNet preprocessing associated with
-        # the pretrained EfficientNet weights.
+        # ImageNet preprocessing
         self.preprocess = weights.transforms()
 
-        # Feature extractor is frozen for this baseline.
+        # Freeze feature extractor
         for parameter in self.model.parameters():
             parameter.requires_grad = False
 
